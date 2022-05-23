@@ -15,8 +15,15 @@ namespace BulkyBookWeb.Controllers
 
         public IActionResult Index()
         {
+            var category = new Category(4, "batman", 53);
             IEnumerable<Category> objCategoryList = _db.Categories;
-            return View(objCategoryList);
+           var objeto = objCategoryList.Select(x => new CategoryViewModel()
+            {
+                Name = x.Name,
+                DisplayOrder = x.DisplayOrder,
+                Id = x.Id
+            }) ;
+            return View(objeto);
         }
 
         //GET
@@ -81,12 +88,14 @@ namespace BulkyBookWeb.Controllers
             return View(obj);
         }
 
-        [HttpDelete]
-        //public IActionResult Delete(int? id) 
-        //{
-            
-        //}
-            
-            
+        public IActionResult Delete(Category obj)
+        {
+
+            _db.Categories.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
