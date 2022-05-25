@@ -15,8 +15,7 @@ namespace BulkyBookWeb.Controllers
 
         public IActionResult Index()
         {
-            var category = new Category(4, "batman", 53);
-            IEnumerable<Category> objCategoryList = _db.Categories;
+           IEnumerable<CategoryViewModel> objCategoryList = _db.Categories;
            var objeto = objCategoryList.Select(x => new CategoryViewModel()
             {
                 Name = x.Name,
@@ -28,6 +27,7 @@ namespace BulkyBookWeb.Controllers
 
         //GET
 
+        
         public IActionResult Create()
         {
             return View();
@@ -61,10 +61,10 @@ namespace BulkyBookWeb.Controllers
             {
                 return NotFound("Id is null or 0 please select a existent object");
             }
-            //var categoryFromDb = _db.Categories.Find(id);
-            var categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
+            var categoryFromDb = _db.Categories.Find(id);
+            //var categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
 
-            if(categoryFromDb == null) return NotFound();
+            if (categoryFromDb == null) return NotFound();
 
             return View(categoryFromDb);
 
@@ -72,7 +72,7 @@ namespace BulkyBookWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Category obj)
+        public IActionResult Edit(CategoryViewModel obj)
         {
             if (obj.Name == obj.DisplayOrder.ToString())
             {
