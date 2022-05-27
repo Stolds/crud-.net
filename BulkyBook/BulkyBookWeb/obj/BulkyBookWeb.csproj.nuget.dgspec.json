@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\learn\\VisualStudio\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj": {}
+    "C:\\learn\\crud-.net\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj": {}
   },
   "projects": {
-    "C:\\learn\\VisualStudio\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj": {
+    "C:\\learn\\crud-.net\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\learn\\VisualStudio\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
+        "projectUniqueName": "C:\\learn\\crud-.net\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
         "projectName": "BulkyBookWeb",
-        "projectPath": "C:\\learn\\VisualStudio\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
-        "packagesPath": "C:\\Users\\04125120250\\.nuget\\packages\\",
-        "outputPath": "C:\\learn\\VisualStudio\\BulkyBook\\BulkyBookWeb\\obj\\",
+        "projectPath": "C:\\learn\\crud-.net\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
+        "packagesPath": "C:\\Users\\00209875283\\.nuget\\packages\\",
+        "outputPath": "C:\\learn\\crud-.net\\BulkyBook\\BulkyBookWeb\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\04125120250\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\00209875283\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

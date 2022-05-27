@@ -15,7 +15,7 @@ namespace BulkyBookWeb.Controllers
 
         public IActionResult Index()
         {
-           IEnumerable<CategoryViewModel> objCategoryList = _db.Categories;
+           IEnumerable<Category> objCategoryList = _db.Categories;
            var objeto = objCategoryList.Select(x => new CategoryViewModel()
             {
                 Name = x.Name,
@@ -36,19 +36,22 @@ namespace BulkyBookWeb.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create (Category obj)
+        public IActionResult Create (CategoryViewModel obj) 
         {
             if (obj.Name == obj.DisplayOrder.ToString())
             {
                 ModelState.AddModelError("CustomError", "The DisplayOrder can't have the same value of Name");
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) 
             {
-                _db.Categories.Add(obj);
+                var categoryToDb = new Category(obj.Name, obj.DisplayOrder);
+
+                _db.Categories.Add(categoryToDb);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ErroCreate = "deu algum erro aí amigão";
             return View(obj);
         }
 
@@ -66,7 +69,15 @@ namespace BulkyBookWeb.Controllers
 
             if (categoryFromDb == null) return NotFound();
 
-            return View(categoryFromDb);
+            var categoryFromDbViewModel = new CategoryViewModel()
+            {
+                Id = categoryFromDb.Id,
+                Name = categoryFromDb.Name,
+                DisplayOrder=categoryFromDb.DisplayOrder,
+            };
+
+
+            return View(categoryFromDbViewModel);
 
         }
 
@@ -74,26 +85,33 @@ namespace BulkyBookWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(CategoryViewModel obj)
         {
-            if (obj.Name == obj.DisplayOrder.ToString())
+            if (ModelState.IsValid) 
             {
-                ModelState.AddModelError("CustomError", "The DisplayOrder can't have the same value of Name");
-            }
+                var category = _db.Categories.Find(obj.Id);
 
-            if (ModelState.IsValid)
-            {
-                _db.Categories.Update(obj);
+                if (category == null) return NotFound();
+
+                category.AtualizarDados(obj.Name, obj.DisplayOrder);
+
+                _db.Update(category);
                 _db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction(nameof(Index));
             }
+            ViewBag.Erros = "Erro cacete, que saco, vê aí oq deu errado é dev msm";
             return View(obj);
         }
 
-        public IActionResult Delete(Category obj)
+        public IActionResult Delete(int? id)
         {
 
-            _db.Categories.Remove(obj);
+            var CategoryFromDb = _db.Categories.Find(id);
+
+            if (CategoryFromDb == null) return NotFound();
+
+            _db.Categories.Remove(CategoryFromDb);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
 
