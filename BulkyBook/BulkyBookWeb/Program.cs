@@ -1,5 +1,7 @@
 using BulkyBookWeb.Data;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql
     builder.Configuration.GetConnectionString("BulkyBookDb")
     ));
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+{
+    ProgressBar = false,
+    PositionClass= ToastPositions.TopCenter
+});
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -26,6 +36,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseNToastNotify();
+
+
 
 app.MapControllerRoute(
     name: "default",

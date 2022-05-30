@@ -1,6 +1,7 @@
 ﻿using BulkyBookWeb.Data;
 using BulkyBookWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 namespace BulkyBookWeb.Controllers
 {
@@ -8,9 +9,12 @@ namespace BulkyBookWeb.Controllers
     {
         private readonly ApplicationDbContext _db;
 
-        public CategoryController(ApplicationDbContext db)
+        private readonly IToastNotification _toastNotification;
+
+        public CategoryController(ApplicationDbContext db, IToastNotification toastNotification)
         {
             _db = db;
+            _toastNotification = toastNotification;
         }
 
         public IActionResult Index()
@@ -111,6 +115,7 @@ namespace BulkyBookWeb.Controllers
 
             _db.Categories.Remove(CategoryFromDb);
             _db.SaveChanges();
+            _toastNotification.AddSuccessToastMessage("O item foi excluído com sucesso");
             return RedirectToAction(nameof(Index));
         }
 
